@@ -1,0 +1,15 @@
+.main
+{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+}
+.main_content
+{
+  border: 2px solid black;
+  position: relative;
+  text-align: center;
+}
+.image
+{
+  position: absolute
+}
