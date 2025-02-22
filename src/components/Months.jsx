@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Months = () => {
     const [months, setMonths] = useState([]);
+    const data=useParams()
 
     const responsiveSettings = {
         superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 1 },
@@ -21,6 +22,7 @@ const Months = () => {
             setMonths(response.data);
         } catch (error) {
             console.error("Error fetching months:", error);
+            setMonths([])
         }
     };
 
@@ -33,7 +35,7 @@ const Months = () => {
             <Carousel responsive={responsiveSettings} className='carousel'>
                 {months.map((month) => (
                     <div key={month.id}>
-                        <Link  to={`/${month.month}`}>
+                        <Link  to={`/${month.month}`} className='nav-link'>
                         <p>{month.calendar_banner_text}</p>
                         </Link>
                     </div>

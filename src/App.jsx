@@ -4,9 +4,7 @@ import viteLogo from '/vite.svg';
 import './App.css';
 import Allroutes from './routes/allroutes';
 
-
 function App() {
-
 
   return (
     <>

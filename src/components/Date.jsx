@@ -1,23 +1,31 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 
 const Date = () => {
 
   const [days, setDays] = useState([]);
+  const {month}=useParams()
+  const [loading,setloading]=useState([]);
+
   const fetchDays = async () => {
     try {
-      const response = await axios.get("https://v1.realtormate.com/api/social_calendar/get/January");
+    setloading(true)
+      const response = await axios.get(`https://v1.realtormate.com/api/social_calendar/get/${month}`);
       console.log("Fetched days:", response.data.days);
       setDays(response.data.days);
-    } catch (error) {
+      setloading(false)
+    } 
+    catch (error) {
       console.error("Error fetching days:", error);
+      setloading(false)
     }
   };
     useEffect(() => {
-    // fetchMonths();
     fetchDays();
-  }, []);
-  return (
+  }, [month]);
+
+  return loading ? <h1>loading......</h1> :(
     <div>
         <div className="main">
           {days.map((day) => (
@@ -30,7 +38,7 @@ const Date = () => {
                 <p className='card_body'>{day.card_body}</p>
                 <a href="" className="button m-0" >SHEDDULE POST</a>
                 </div>
-                {day.card_image && <img src={day.card_image} alt="" className='image img-fluid' />}
+                <img src={day.card_image} alt="" className='image img-fluid' />
               </div>
             </div>
           ))}
