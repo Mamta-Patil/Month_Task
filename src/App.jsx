@@ -13,7 +13,8 @@ function App() {
     axios.get("https://v1.realtormate.com/api/social_calendar/all_months")
     .then((res)=>{
       console.log("monthdata:",res.data)
-      setmonthdata(data.data)
+      setmonthdata(res.data)
+      console.log("monthdata after fetching : ",res.data)
     })
     .catch((err)=>{
       console.log(err)
@@ -27,7 +28,7 @@ function App() {
     .then((res)=>{
       console.log(res.data.days)
       setdata(res.data.days)
-      console.log(data)
+      console.log("days data after fetching ",res.data.days)
     })
     .catch((err)=>{
       console.log(err)
@@ -41,12 +42,13 @@ function App() {
 
   return (
     <>
-      <div>
-         <div className='month_slider'>
-<Carousel>
+      <div className='row m-0'>
+         {/* <div className='month_slider col-12'>
+     <Carousel>
   {
     monthdata.map((el)=>{
       return(
+        
       <Carousel.Item>
           <Carousel.Caption>
             <h4>{el.month}</h4>
@@ -56,18 +58,33 @@ function App() {
     })
   }
     </Carousel>
-         </div>
+         </div> */}
+
+<Carousel>
+{
+    monthdata.map((el)=>{
+      return(
+      <Carousel.Item>
+        <Carousel.Caption>
+           <h4>{el.month}</h4>
+        </Carousel.Caption>
+      </Carousel.Item>
+       )
+    })
+  }
+    </Carousel>
 
 
-         <div className="days_information">
+
+         <div className="main col-12 ">
          {
         data.map((el)=>(
-            <div className="main">
+            <div className="row">
               <div className='main_content'>
                 <h4>{el.day_of_the_month} </h4>
                 <h6>{el.card_header}</h6>
                 <p>{el.card_body}</p>
-                <img src={el.card_image} alt="" className='image img-fluid w-50 m-auto' />
+                <img src={el.card_image} alt="" className='image img-fluid' />
               </div>
             </div>
         ))
